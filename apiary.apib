@@ -1,0 +1,924 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+
+# REST_API_Task
+
+RESTFUL API Task
+
+## Login [/login]
+
+### Authenticate [POST]
+
++ Request (application/json)
+
+        {
+            "username": "joko_ganteng",
+            "password": "123454321"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "username": "joko_ganteng",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Impva29fZ2FudGVuZyIsIm5iZiI6MTU3OTY1NjU0MiwiZXhwIjoxNTgwMjYxMzQyLCJpYXQiOjE1Nzk2NTY1NDJ9.3VVfEVU7BXZs-WgQGLM0e4K7flCxkera2fIWoxB5wlQ"
+        }
+
+
+## Customers Collection [/customer]
+
+### List All Customers [GET]
+
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+        {
+            "id": 1,
+            "name": "Joko",
+            "address": "Jakarta",
+            "orders": [
+                {
+                    "id": 1,
+                    "cust_id": 1,
+                    "deliv_add_id": 1,
+                    "orderItems": [
+                        {
+                            "id": 1,
+                            "order_id": 1,
+                            "product_id": 1,
+                            "quantity": 10
+                        }
+                    ]
+                }
+            ],
+            "loginAuth": [
+                {
+                    "id": 1,
+                    "customer_id": 1,
+                    "username": "joko_ganteng",
+                    "password": "123454321"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Budi",
+            "address": "Bandung",
+            "orders": [
+                {
+                    "id": 2,
+                    "cust_id": 2,
+                    "deliv_add_id": 2,
+                    "orderItems": [
+                        {
+                            "id": 2,
+                            "order_id": 2,
+                            "product_id": 2,
+                            "quantity": 5
+                        }
+                    ]
+                }
+            ],
+            "loginAuth": [
+                {
+                    "id": 2,
+                    "customer_id": 2,
+                    "username": "budi_rupawan",
+                    "password": "678909876"
+                }
+            ]
+        }
+
+### Add New Customer [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "name": "Ani",
+                "address": "Ambon"
+            }
+
++ Response 200 (application/json)            
+
+        {
+            "id": 3,
+            "name": "Ani",
+            "address": "Ambon",
+            "orders": null,
+            "loginAuth": null
+        }
+
+## Customer [/customer/{id}]
+
++ Parameters
+    + id: 1 - id of customer
+
+### Show Customer by ID [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+        {
+            "id": 1,
+            "name": "Joko",
+            "address": "Jakarta",
+            "orders": [
+                {
+                    "id": 1,
+                    "cust_id": 1,
+                    "deliv_add_id": 1,
+                    "orderItems": [
+                        {
+                            "id": 1,
+                            "order_id": 1,
+                            "product_id": 1,
+                            "quantity": 10
+                        }
+                    ]
+                }
+            ],
+            "loginAuth": [
+                {
+                    "id": 1,
+                    "customer_id": 1,
+                    "username": "joko_ganteng",
+                    "password": "123454321"
+                }
+            ]
+        }
+
+### Edit Customer [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "name": "Joko Anwar",
+                "address": "Jakarta Timur"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "name": "Joko Anwar",
+            "address": "Jakarta Timur",
+            "orders": [
+                {
+                    "id": 1,
+                    "cust_id": 1,
+                    "deliv_add_id": 1,
+                    "orderItems": [
+                        {
+                            "id": 1,
+                            "order_id": 1,
+                            "product_id": 1,
+                            "quantity": 10
+                        }
+                    ]
+                }
+            ],
+            "loginAuth": [
+                {
+                    "id": 1,
+                    "customer_id": 1,
+                    "username": "joko_ganteng",
+                    "password": "123454321"
+                }
+            ]
+        }
+
+### Delete Customer [DELETE]
+
++ Response 200
+
+        {
+            1
+        }
+
+## Orders Collection [/order]
+
+### List All Orders [GET]
+
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+        [
+            {
+                "id": 1,
+                "cust_id": 1,
+                "deliv_add_id": 1,
+                "orderItems": [
+                    {
+                        "id": 1,
+                        "order_id": 1,
+                        "product_id": 1,
+                        "quantity": 10
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "cust_id": 2,
+                "deliv_add_id": 2,
+                "orderItems": [
+                    {
+                        "id": 2,
+                        "order_id": 2,
+                        "product_id": 2,
+                        "quantity": 5
+                    }
+                ]
+            }
+        ]
+
+### Add New Order [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "cust_id": 3,
+                "deliv_add_id": 3
+            }
+
++ Response 200 (application/json)            
+
+        {
+            "id": 3,
+            "cust_id": 3,
+            "deliv_add_id": 3
+            "orderItems": null
+        }
+
+## Order [/order/{id}]
+
++ Parameters
+    + id: 1 - id of order
+
+### Show Order by ID [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+        [
+            {
+                "id": 1,
+                "cust_id": 1,
+                "deliv_add_id": 1,
+                "orderItems": [
+                    {
+                        "id": 1,
+                        "order_id": 1,
+                        "product_id": 1,
+                        "quantity": 10
+                    }
+                ]
+            }
+        ]
+
+### Edit Order [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "deliv_add_id": 2
+            }
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "cust_id": 1,
+                "deliv_add_id": 2,
+                "orderItems": [
+                    {
+                        "id": 1,
+                        "order_id": 1,
+                        "product_id": 1,
+                        "quantity": 10
+                    }
+                ]
+            }
+        ]
+
+### Delete Order [DELETE]
+
++ Response 200
+
+        {
+            1
+        }
+        
+
+## Delivery Address Collection [/deliv_add]
+
+### List All Delivery Adresses [GET]
+
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+        [
+            {
+                "id": 1,
+                "name": "Joko",
+                "address": "Jakarta Timur",
+                "orders": [
+                    {
+                        "id": 1,
+                        "cust_id": 1,
+                        "deliv_add_id": 1,
+                        "orderItems": [
+                            {
+                                "id": 1,
+                                "order_id": 1,
+                                "product_id": 1,
+                                "quantity": 10
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Budi",
+                "address": "Bandung Wetan",
+                "orders": [
+                    {
+                        "id": 2,
+                        "cust_id": 2,
+                        "deliv_add_id": 2,
+                        "orderItems": [
+                            {
+                                "id": 2,
+                                "order_id": 2,
+                                "product_id": 2,
+                                "quantity": 5
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+
+### Add New Delivery Adress [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "name": "Ani",
+                "address": "Pulau Buru"
+            }
+
++ Response 200 (application/json)            
+
+            {
+                "id": 3,
+                "name": "Ani",
+                "address": "Pulau Buru",
+                "orders": null
+            }
+
+## Delivery Address [/deliv_add/{id}]
+
++ Parameters
+    + id: 1 - id of delivery address
+
+### Show Delivery Address by ID [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+        [
+            {
+                "id": 1,
+                "name": "Joko",
+                "address": "Jakarta Timur",
+                "orders": [
+                    {
+                        "id": 1,
+                        "cust_id": 1,
+                        "deliv_add_id": 1,
+                        "orderItems": [
+                            {
+                                "id": 1,
+                                "order_id": 1,
+                                "product_id": 1,
+                                "quantity": 10
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+
+### Edit Delivery Address [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "name": "Joko Tingkir",
+                "address": "Jawa Timur"
+            }
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "name": "Joko Tingkir",
+                "address": "Jawa Timur",
+                "orders": [
+                    {
+                        "id": 1,
+                        "cust_id": 1,
+                        "deliv_add_id": 1,
+                        "orderItems": [
+                            {
+                                "id": 1,
+                                "order_id": 1,
+                                "product_id": 1,
+                                "quantity": 10
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+
+### Delete Delivery Address [DELETE]
+
++ Response 200
+
+        {
+            1
+        }
+
+
+## Order Item Collection [/order_item]
+
+### List All Order Items [GET]
+
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+        [
+            {
+                "id": 1,
+                "order_id": 1,
+                "product_id": 1,
+                "quantity": 10
+            },
+            {
+                "id": 2,
+                "order_id": 2,
+                "product_id": 2,
+                "quantity": 5
+            }
+        ]
+
+### Add New Order Item [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "order_id": 1,
+                "product_id": 2,
+                "quantity": 10
+            }
+
++ Response 200 (application/json)            
+
+            {
+                "id": 3,
+                "order_id": 1,
+                "product_id": 2,
+                "quantity": 10
+            }
+
+## Order Item [/order_item/{id}]
+
++ Parameters
+    + id: 1 - id of order item
+
+### Show Order Item by ID [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+            {
+                "id": 1,
+                "order_id": 1,
+                "product_id": 1,
+                "quantity": 10
+            }
+
+### Edit Order Item [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "quantity": 8
+            }
+
++ Response 200 (application/json)
+
+            {
+                "id": 1,
+                "order_id": 1,
+                "product_id": 1,
+                "quantity": 8
+            }
+            
+### Delete Order Item [DELETE]
+
++ Response 200
+
+        {
+            1
+        }
+
+
+## Product Collection [/product]
+
+### List All Products [GET]
+
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+        [
+            {
+                "id": 1,
+                "cat_id": 1,
+                "name": "Mangga",
+                "price": 20000,
+                "orderItems": [
+                    {
+                        "id": 1,
+                        "order_id": 1,
+                        "product_id": 1,
+                        "quantity": 10
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "cat_id": 2,
+                "name": "Sawi",
+                "price": 5000,
+                "orderItems": [
+                    {
+                        "id": 2,
+                        "order_id": 2,
+                        "product_id": 2,
+                        "quantity": 5
+                    }
+                ]
+            }
+        ]
+
+### Add New Product [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "cat_id": 1,
+                "name": "Apel",
+                "price": 25000
+            }
+
++ Response 200 (application/json)            
+
+            {
+                "id": 3,
+                "cat_id": 1,
+                "name": "Apel",
+                "price": 25000,
+                "orderItems": null
+            }
+
+## Product [/product/{id}]
+
++ Parameters
+    + id: 1 - id of product
+
+### Show Product by ID [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+            {
+                "id": 1,
+                "cat_id": 1,
+                "name": "Mangga",
+                "price": 20000,
+                "orderItems": [
+                    {
+                        "id": 1,
+                        "order_id": 1,
+                        "product_id": 1,
+                        "quantity": 10
+                    }
+                ]
+            }
+
+### Edit Product [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "price": 18000
+            }
+
++ Response 200 (application/json)
+
+            {
+                "id": 1,
+                "cat_id": 1,
+                "name": "Mangga",
+                "price": 18000,
+                "orderItems": [
+                    {
+                        "id": 1,
+                        "order_id": 1,
+                        "product_id": 1,
+                        "quantity": 10
+                    }
+                ]
+            }
+            
+### Delete Product [DELETE]
+
++ Response 200
+
+        {
+            1
+        }
+
+
+## Category Collection [/category]
+
+### List All Categories [GET]
+
++ Request
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+        [
+            {
+                "id": 1,
+                "name": "buah",
+                "products": [
+                    {
+                        "id": 1,
+                        "cat_id": 1,
+                        "name": "Mangga",
+                        "price": 20000,
+                        "orderItems": [
+                            {
+                                "id": 1,
+                                "order_id": 1,
+                                "product_id": 1,
+                                "quantity": 10
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "sayur",
+                "products": [
+                    {
+                        "id": 2,
+                        "cat_id": 2,
+                        "name": "Sawi",
+                        "price": 5000,
+                        "orderItems": [
+                            {
+                                "id": 2,
+                                "order_id": 2,
+                                "product_id": 2,
+                                "quantity": 5
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+
+### Add New Category [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "name": "susu"
+            }
+
++ Response 200 (application/json)            
+
+            {
+                "id": 3,
+                "name": "susu",
+                "products": null
+            }
+
+## Category [/category/{id}]
+
++ Parameters
+    + id: 1 - id of category
+
+### Show Category by ID [GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+
++ Response 200 (application/json)            
+
+            {
+                "id": 1,
+                "name": "buah",
+                "products": [
+                    {
+                        "id": 1,
+                        "cat_id": 1,
+                        "name": "Mangga",
+                        "price": 20000,
+                        "orderItems": [
+                            {
+                                "id": 1,
+                                "order_id": 1,
+                                "product_id": 1,
+                                "quantity": 10
+                            }
+                        ]
+                    }
+                ]
+            }
+
+### Edit Category [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer JWT
+    
+    + Body
+
+            {
+                "name": "Buah-buahan"
+            }
+
++ Response 200 (application/json)
+
+            {
+                "id": 1,
+                "name": "Buah-buahan",
+                "products": [
+                    {
+                        "id": 1,
+                        "cat_id": 1,
+                        "name": "Mangga",
+                        "price": 20000,
+                        "orderItems": [
+                            {
+                                "id": 1,
+                                "order_id": 1,
+                                "product_id": 1,
+                                "quantity": 10
+                            }
+                        ]
+                    }
+                ]
+            }
+            
+### Delete Category [DELETE]
+
++ Response 200
+
+        {
+            1
+        }
